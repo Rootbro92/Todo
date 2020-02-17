@@ -10,19 +10,27 @@ import UIKit
 
 class MemoListViewController: UIViewController {
     
+    //MARK:- UI Properties
+    
     @IBOutlet weak var tableView: UITableView!
     
+    //MARK:- Properties
+    
     var memos: [Memo] = []
+    
+    //MARK:- Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
         loadAll()
-        
-        // Do any additional setup after loading the view.
     }
-    
+}
+
+//MARK:- Methods
+
+extension MemoListViewController {
     private func setupUI() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -34,14 +42,14 @@ class MemoListViewController: UIViewController {
                 "content" : memo.content, "insertDate" : memo.date
             ]
         }
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(data, forKey: UserDefaultsKeys.memoList)
-        userDefaults.synchronize()
+        AppUserDefaults.save(value: data, forKey:AppUserDefaults.Key.memoList)
+//        let userDefaults = UserDefaults.standard
+//        userDefaults.set(data, forKey: UserDefaultsKeys.memoList)
+//        userDefaults.synchronize()
     }
     
     func loadAll() {
-        let userDefaults = UserDefaults.standard
-        guard let data = userDefaults.object(forKey: UserDefaultsKeys.memoList) as? [[String: Any]] else { return }
+        guard let data = AppUserDefaults.load(forKey: AppUserDefaults.Key.memoList) as? [[String: Any]] else { return }
         
         self.memos = data.map { memo in
             let content = memo["content"] as? String ?? ""
@@ -49,7 +57,11 @@ class MemoListViewController: UIViewController {
             return Memo(content: content, date: insertDate)
         }
     }
-    
+}
+
+//MARK:- Actions
+
+extension MemoListViewController {
     @IBAction func addMemo(_ sender: Any) {
         if let naviVC = storyboard?.instantiateViewController(withIdentifier: String(describing: "MemoComposeViewController")) as? UINavigationController,
             let composeVC = naviVC.viewControllers.first as? MemoComposeViewController {
@@ -63,14 +75,15 @@ class MemoListViewController: UIViewController {
             present(naviVC, animated: true, completion: nil)
         }
     }
-    
-    
 }
+
+//MARK:- TableView DataSource
 
 extension MemoListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memos.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MemoCell.self), for: indexPath) as? MemoCell else {
             return UITableViewCell()
@@ -80,6 +93,7 @@ extension MemoListViewController: UITableViewDataSource {
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let detailVC = storyboard?.instantiateViewController(
             withIdentifier: String(describing: MemoDetailViewController.self)
@@ -87,18 +101,20 @@ extension MemoListViewController: UITableViewDataSource {
         
         detailVC.configure(with: memos[indexPath.row], at: indexPath)
         detailVC.deleteHandler = { indexPath in
-          self.memos.remove(at: indexPath.row)
-          self.saveAll()
-          self.tableView.reloadData()
+            self.memos.remove(at: indexPath.row)
+            self.saveAll()
+            self.tableView.reloadData()
         }
         detailVC.editHandler = { (memo, indexPath) in
-          self.memos[indexPath.row] = memo
-          self.saveAll()
-          self.tableView.reloadData()
+            self.memos[indexPath.row] = memo
+            self.saveAll()
+            self.tableView.reloadData()
         }
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
+
+//MARK:- TableView Delegate
 
 extension MemoListViewController: UITableViewDelegate {
     

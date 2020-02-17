@@ -9,6 +9,4 @@
 import Foundation
 
 
-struct UserDefaultsKeys {
-    static let memoList = "memoUserDefaultKey"
-}
+
