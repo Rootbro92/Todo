@@ -15,24 +15,40 @@ class MemoDetailViewController: UIViewController {
         date
     }
     
+    //MARK:- UI Properties
     @IBOutlet weak var tableView: UITableView!
     
+    //MARK:- Properties
     private var memo: Memo?
     private var indexPath: IndexPath?
     var deleteHandler: ((IndexPath) -> Void)?
     var editHandler: ((Memo, IndexPath) -> Void)?
+    
+    //MARK:- Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         SetupUI()
-        // Do any additional setup after loading the view.
     }
     
+    
+    
+}
+
+//MARK:- Methods
+extension MemoDetailViewController {
     private func SetupUI(){
         tableView.delegate = self
         tableView.dataSource = self
     }
     
+    func configure(with memo: Memo, at indexPath: IndexPath) {
+        self.memo = memo
+        self.indexPath = indexPath
+    }
+}
+
+//MARK:- Actions
+extension MemoDetailViewController {
     @IBAction func pop(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
@@ -47,20 +63,15 @@ class MemoDetailViewController: UIViewController {
         guard let naviVC = storyboard?.instantiateViewController(withIdentifier: "MemoComposeViewController") as? UINavigationController,
             let composeVC = naviVC.viewControllers.first as? MemoComposeViewController else { return }
         composeVC.memo = memo
-        composeVC.addHandler = { memo in
-            self.memo = memo
-            self.tableView.reloadData()
+        composeVC.addHandler = { [weak self] memo in
+            self?.memo = memo
+            self?.tableView.reloadData()
         }
         present(naviVC, animated: true, completion: nil)
     }
-    
-    func configure(with memo: Memo, at indexPath: IndexPath) {
-        self.memo = memo
-        self.indexPath = indexPath
-    }
-    
 }
 
+//MARK:- TableView DataSource
 extension MemoDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
@@ -75,8 +86,8 @@ extension MemoDetailViewController: UITableViewDataSource {
                     return UITableViewCell()
             }
             cell.configure(with: memo?.content)
-            
             return cell
+            
         case .date:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: "DateCell", for: indexPath
@@ -84,14 +95,15 @@ extension MemoDetailViewController: UITableViewDataSource {
                     return UITableViewCell()
             }
             cell.configure(with: memo?.date)
-            
             return cell
+            
         default:
             return UITableViewCell()
         }
     }
 }
+
+//MARK:- TableView Delegate
 extension MemoDetailViewController: UITableViewDelegate {
     
 }
-

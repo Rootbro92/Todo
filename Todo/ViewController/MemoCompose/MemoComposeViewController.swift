@@ -20,14 +20,15 @@ class MemoComposeViewController: UIViewController {
     var addHandler: ((Memo) -> Void)?
     
     //MARK:- Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        // Do any additional setup after loading the view.
     }
 }
 
 //MARK:- Actions
+
 extension MemoComposeViewController {
     @IBAction func dismiss(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -50,6 +51,7 @@ extension MemoComposeViewController {
 }
 
 //MARK:- Methods
+
 extension MemoComposeViewController {
     private func setupUI() {
         contentTextView.text = memo?.content

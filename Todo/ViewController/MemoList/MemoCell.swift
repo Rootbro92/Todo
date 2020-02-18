@@ -10,7 +10,12 @@ import UIKit
 
 class MemoCell: UITableViewCell {
 
+    //MARK:- UI Properties
+    
     @IBOutlet weak var contentLabel: UILabel!
+    
+    //MARK:- Methods
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -23,3 +28,5 @@ class MemoCell: UITableViewCell {
         contentLabel.text = content
     }
 }
+
+

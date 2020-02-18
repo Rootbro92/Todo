@@ -10,17 +10,20 @@ import UIKit
 
 class DateCell: UITableViewCell {
     
+    //MARK:- UI Properties
+    
     @IBOutlet weak var dateLabel: UILabel!
+    
+    //MARK:- Methods
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
+    
     func configure(with date: Date?){
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -30,5 +33,4 @@ class DateCell: UITableViewCell {
             self.dateLabel.text = formatter.string(from: date)
         }
     }
-    
 }

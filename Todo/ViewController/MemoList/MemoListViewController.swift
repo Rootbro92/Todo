@@ -109,11 +109,13 @@ extension MemoListViewController: UITableViewDataSource {
             ) as? MemoDetailViewController else { return }
         
         detailVC.configure(with: memos[indexPath.row], at: indexPath)
+        
         detailVC.deleteHandler = { [weak self] indexPath in
             self?.memos.remove(at: indexPath.row)
             self?.saveAll()
             self?.reload()
         }
+        
         detailVC.editHandler = { [weak self] (memo, indexPath) in
             self?.memos[indexPath.row] = memo
             self?.saveAll()
