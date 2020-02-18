@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8468D10A23FABFE900C24374 /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8468D10923FABFE900C24374 /* AppUserDefaults.swift */; };
 		8468D10C23FAC3B300C24374 /* AppUserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8468D10B23FAC3B300C24374 /* AppUserDefaults+Extension.swift */; };
+		8468D10F23FAC6EA00C24374 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8468D10E23FAC6EA00C24374 /* UIView+Extension.swift */; };
+		8468D11123FACEBD00C24374 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8468D11023FACEBD00C24374 /* UIViewController+Extension.swift */; };
 		846D1DC423F6BD9E00B7F301 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D1DC323F6BD9E00B7F301 /* Constant.swift */; };
 		846D1DC723F6BF5400B7F301 /* MemoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D1DC623F6BF5400B7F301 /* MemoDetailViewController.swift */; };
 		846D1DC923F6E2F600B7F301 /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D1DC823F6E2F600B7F301 /* ContentCell.swift */; };
@@ -26,6 +28,8 @@
 /* Begin PBXFileReference section */
 		8468D10923FABFE900C24374 /* AppUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
 		8468D10B23FAC3B300C24374 /* AppUserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppUserDefaults+Extension.swift"; sourceTree = "<group>"; };
+		8468D10E23FAC6EA00C24374 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		8468D11023FACEBD00C24374 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		846D1DC323F6BD9E00B7F301 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		846D1DC623F6BF5400B7F301 /* MemoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDetailViewController.swift; sourceTree = "<group>"; };
 		846D1DC823F6E2F600B7F301 /* ContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
@@ -56,9 +60,19 @@
 		8468D10623FABF4D00C24374 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				8468D10D23FAC6BB00C24374 /* Extension */,
 				846D1DC223F6BD7D00B7F301 /* Utility */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		8468D10D23FAC6BB00C24374 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8468D10E23FAC6EA00C24374 /* UIView+Extension.swift */,
+				8468D11023FACEBD00C24374 /* UIViewController+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		846D1DC223F6BD7D00B7F301 /* Utility */ = {
@@ -227,11 +241,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				846D1DC423F6BD9E00B7F301 /* Constant.swift in Sources */,
+				8468D11123FACEBD00C24374 /* UIViewController+Extension.swift in Sources */,
 				846D1DCB23F6E30300B7F301 /* DateCell.swift in Sources */,
 				846D1DC723F6BF5400B7F301 /* MemoDetailViewController.swift in Sources */,
 				84D9C4BE23F41FDC00E77A05 /* AppDelegate.swift in Sources */,
 				846D1DC923F6E2F600B7F301 /* ContentCell.swift in Sources */,
 				8468D10C23FAC3B300C24374 /* AppUserDefaults+Extension.swift in Sources */,
+				8468D10F23FAC6EA00C24374 /* UIView+Extension.swift in Sources */,
 				84D9C4D223F4318200E77A05 /* MemoListViewController.swift in Sources */,
 				84751F8923F577DD0088A3EE /* Memo.swift in Sources */,
 				84751F8423F516A00088A3EE /* MemoCell.swift in Sources */,

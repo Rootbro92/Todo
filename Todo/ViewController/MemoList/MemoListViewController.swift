@@ -57,19 +57,28 @@ extension MemoListViewController {
             return Memo(content: content, date: insertDate)
         }
     }
+    
+    func reload() {
+        DispatchQueue.main.async { // UI 작업할 때
+            self.tableView.reloadData()
+        }
+    }
 }
+
 
 //MARK:- Actions
 
 extension MemoListViewController {
     @IBAction func addMemo(_ sender: Any) {
-        if let naviVC = storyboard?.instantiateViewController(withIdentifier: String(describing: "MemoComposeViewController")) as? UINavigationController,
+        
+        if let naviVC = storyboard?.instantiateViewController(withIdentifier: MemoComposeViewController.reuseIdentifier) as? UINavigationController,
             let composeVC = naviVC.viewControllers.first as? MemoComposeViewController {
-            
-            composeVC.addHandler = { memo in
-                self.memos.insert(memo, at: 0)
-                self.saveAll()
-                self.tableView.reloadData()
+        
+            // 클로저 캡쳐링
+            composeVC.addHandler = { [weak self] memo in
+                self?.memos.insert(memo, at: 0)
+                self?.saveAll()
+                self?.reload()
             }
             
             present(naviVC, animated: true, completion: nil)
@@ -89,7 +98,7 @@ extension MemoListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.contentLabel.text = memos[indexPath.row].content
+        cell.configure(with: memos[indexPath.row].content)
         
         return cell
     }
