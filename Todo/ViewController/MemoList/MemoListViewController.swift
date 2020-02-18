@@ -94,7 +94,7 @@ extension MemoListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MemoCell.self), for: indexPath) as? MemoCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoCell.reuseIdentifier, for: indexPath) as? MemoCell else {
             return UITableViewCell()
         }
         
@@ -105,19 +105,19 @@ extension MemoListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let detailVC = storyboard?.instantiateViewController(
-            withIdentifier: String(describing: MemoDetailViewController.self)
+            withIdentifier: MemoDetailViewController.reuseIdentifier
             ) as? MemoDetailViewController else { return }
         
         detailVC.configure(with: memos[indexPath.row], at: indexPath)
-        detailVC.deleteHandler = { indexPath in
-            self.memos.remove(at: indexPath.row)
-            self.saveAll()
-            self.tableView.reloadData()
+        detailVC.deleteHandler = { [weak self] indexPath in
+            self?.memos.remove(at: indexPath.row)
+            self?.saveAll()
+            self?.reload()
         }
-        detailVC.editHandler = { (memo, indexPath) in
-            self.memos[indexPath.row] = memo
-            self.saveAll()
-            self.tableView.reloadData()
+        detailVC.editHandler = { [weak self] (memo, indexPath) in
+            self?.memos[indexPath.row] = memo
+            self?.saveAll()
+            self?.reload()
         }
         navigationController?.pushViewController(detailVC, animated: true)
     }

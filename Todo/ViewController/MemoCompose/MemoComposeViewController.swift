@@ -9,18 +9,26 @@
 import UIKit
 
 class MemoComposeViewController: UIViewController {
+    
+    //MARK:- UI Properties
+    
     @IBOutlet weak var contentTextView: UITextView!
+    
+    //MARK:- Properties
     
     var memo: Memo?
     var addHandler: ((Memo) -> Void)?
+    
+    //MARK:- Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         // Do any additional setup after loading the view.
     }
-    private func setupUI() {
-      contentTextView.text = memo?.content
-    }
+}
+
+//MARK:- Actions
+extension MemoComposeViewController {
     @IBAction func dismiss(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -39,17 +47,11 @@ class MemoComposeViewController: UIViewController {
         
         dismiss(animated: true, completion: nil)
     }
-    
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+}
+
+//MARK:- Methods
+extension MemoComposeViewController {
+    private func setupUI() {
+        contentTextView.text = memo?.content
+    }
 }
