@@ -33,6 +33,7 @@ extension MemoComposeViewController {
     @IBAction func dismiss(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func save(_ sender: Any) {
         guard let content = contentTextView.text,
             content.count > 0 else {
